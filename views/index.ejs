@@ -1,14 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <button class="btn btn-primary">
-      <a href="/categories">Shop</a>
-    </button>
-  </body>
-</html>
+<h1>Store Inventory App Home</h1>
+<p>Welcome to the MVC Store Inventory App</p>
+<p>The store inventory app has the following counts:</p>
+<ul>
+  <li>
+    <strong>Number of Categories:</strong>
+    <div><%=numCategories%></div>
+  </li>
+  <li>
+    <strong>Number of Inventory Items:</strong>
+    <div><%=numInventoryItems%></div>
+  </li>
+  <li>
+    <strong>Number of Items:</strong>
+    <div><%=numItems%></div>
+  </li>
+</ul>

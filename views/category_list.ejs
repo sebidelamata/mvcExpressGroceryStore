@@ -1,0 +1,14 @@
+<h1>All Categories</h1>
+<%if(allCategories.length){%>
+    <ul>
+        <% for(let category of allCategories){ %>
+            <li>
+                <a href="<%=category.url%>"><%=category.name%></a>
+                <div><%=category.description%></div>
+            </li>
+        <% } %>
+    </ul>
+    
+<% } else { %>
+    There are no categories
+<% } %>
