@@ -35,7 +35,7 @@ const inventoryItemSchema = new Schema({
     default: 'dry-shelving',
     required: true
     },
-  category_id: { type: Schema.Types.ObjectId, ref: 'Category' }
+  category_id: { type: Schema.Types.ObjectId, ref: 'category' }
 });
 
 // Virtual for author's URL
@@ -45,4 +45,4 @@ inventoryItemSchema.virtual("url").get(function () {
 });
 
 // Export model
-module.exports = mongoose.model("InventoryItemSchema", inventoryItemSchema);
+module.exports = mongoose.model("inventoryItem", inventoryItemSchema);

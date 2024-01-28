@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { DateTime } = require("luxon");
 
 const Schema = mongoose.Schema;
 
@@ -28,8 +29,8 @@ const itemSchema = new Schema({
     }, 
     required: false
   },
-  inventory_item_id: { type: Schema.Types.ObjectId, ref:'InventoryItem', required: true },
-  category_id: { type: Schema.Types.ObjectId, ref: 'Catgeory', required: true }
+  inventory_item_id: { type: Schema.Types.ObjectId, ref:'inventoryItem'},
+  category_id: { type: Schema.Types.ObjectId, ref: 'category' }
 });
 
 // Virtual for if an item is expired
@@ -40,6 +41,14 @@ itemSchema.virtual("is_expired").get(function () {
   } else {
     return false
   }
+});
+
+itemSchema.virtual("received_date_formatted").get(function () {
+  return DateTime.fromJSDate(this.received_date).toLocaleString(DateTime.DATE_MED);
+});
+
+itemSchema.virtual("expiration_date_formatted").get(function () {
+  return DateTime.fromJSDate(this.expiration_date).toLocaleString(DateTime.DATE_MED);
 });
 
 // Virtual for author's URL

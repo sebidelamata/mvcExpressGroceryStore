@@ -1,0 +1,16 @@
+<h1>All Items</h1>
+<%if(allItems.length){%>
+    <ul>
+        <% for(let item of allItems){ %>
+            <li>
+                <a href="<%=item.url%>"><%=item.inventory_item_id.manufaturer%> <%=item.inventory_item_id.name%></a>
+                <div><%=item.inventory_item_id.description%></div>
+                <div><%=item.category_id.name%></div>
+                <div>Received: <%=item.received_date_formatted%></div>
+            </li>
+        <% } %>
+    </ul>
+    
+<% } else { %>
+    There are no inventory items
+<% } %>

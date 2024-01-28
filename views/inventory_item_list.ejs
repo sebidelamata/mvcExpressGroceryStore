@@ -1,0 +1,15 @@
+<h1>All Inventory Items</h1>
+<%if(allInventoryItems.length){%>
+    <ul>
+        <% for(let item of allInventoryItems){ %>
+            <li>
+                <a href="<%=item.url%>"><%=item.name%></a>
+                <div><%=item.description%></div>
+                <div><%=item.category_id.name%></div>
+            </li>
+        <% } %>
+    </ul>
+    
+<% } else { %>
+    There are no inventory items
+<% } %>

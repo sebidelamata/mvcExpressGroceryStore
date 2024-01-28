@@ -1,8 +1,15 @@
 const InventoryItem = require('../models/inventoryItem')
 const asyncHandler = require('express-async-handler')
 
-exports.inventory_item_list = asyncHandler((req, res, next) =>{
-    res.send("NOT IMPLEMENTED: Inventory list");
+exports.inventory_item_list = asyncHandler(async (req, res, next) =>{
+    const allInventoryItems = await InventoryItem
+        .find()
+        .populate("category_id")
+        .exec()
+    console.log(allInventoryItems)
+    res.render('inventory_item_list', {
+        allInventoryItems: allInventoryItems
+    })
 })
 
 exports.inventory_item_detail = asyncHandler((req, res, next) =>{
