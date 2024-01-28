@@ -5,7 +5,7 @@ exports.category_list = asyncHandler(async (req, res, next) =>{
     const allCategories = await Category
         .find({}, "name description")
         .sort({ name: 1 })
-        .populate("name description")
+        .populate("name")
         .exec()
 
     res.render('category_list', {
