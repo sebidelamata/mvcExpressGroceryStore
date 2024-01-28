@@ -32,8 +32,20 @@ exports.item_list = asyncHandler(async (req, res, next) =>{
     })
 })
 
-exports.item_detail = asyncHandler((req, res, next) =>{
-    res.send("NOT IMPLEMENTED: Item detail");
+exports.item_detail = asyncHandler(async (req, res, next) =>{
+    const item = await Item.findById(req.params.id).populate("inventory_item_id").exec()
+
+    if (item === null) {
+        // No results.
+        const err = new Error("Item not found");
+        err.status = 404;
+        return next(err);
+    }
+    
+    res.render('item_detail', {
+        item: item,
+        errors: null
+    })
 })
 
 exports.item_create_get = asyncHandler((req, res, next) =>{

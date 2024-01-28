@@ -1,0 +1,10 @@
+<h1>Item: <%=item._id%></h1>
+<h2><%=item.inventory_item_id.name%></h2>
+<h2><%=item.inventory_item_id.description%></h2>
+<% if(item.expiration_date !== null && item.expiration_date !== undefined){ %>
+    <div>Expired: <%=item.is_expired%></div>
+<% } %>
+<div><%=item.received_date_formatted%></div>
+<% if(item.expiration_date !== null && item.expiration_date !== undefined){ %>
+    <div>Expired: <%=item.expiration_date_formatted%></div>
+<% } %>

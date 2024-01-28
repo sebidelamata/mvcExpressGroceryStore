@@ -54,7 +54,7 @@ itemSchema.virtual("expiration_date_formatted").get(function () {
 // Virtual for author's URL
 itemSchema.virtual("url").get(function () {
   // We don't use an arrow function as we'll need the this object
-  return `/catalog/item/${this._id}`;
+  return `/item/${this._id}`;
 });
 
 // Export model

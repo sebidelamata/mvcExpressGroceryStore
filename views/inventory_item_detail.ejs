@@ -1,0 +1,16 @@
+<h1>Inventory Item: <%=inventory_item.name%></h1>
+<div style="margin-left:20px;margin-top:20px">
+    <h4>Inventory Items</h4>
+    <h4>Items</h4>
+    <% if(inventory_item_items.length){ %>
+        <dl>
+            <% for(let item of inventory_item_items){ %>
+                <dt>
+                    <a href="<%=item.url%>">ID: <%=item._id%>;  Received: <%=item.received_date_formatted%></a>
+                </dt>
+            <% } %>
+        </dl>
+    <% } else{ %>
+        <div>There are no Items for this Category</div>
+    <% } %>
+</div>

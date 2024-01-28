@@ -1,4 +1,5 @@
 const InventoryItem = require('../models/inventoryItem')
+const Item = require('../models/item')
 const asyncHandler = require('express-async-handler')
 
 exports.inventory_item_list = asyncHandler(async (req, res, next) =>{
@@ -12,8 +13,24 @@ exports.inventory_item_list = asyncHandler(async (req, res, next) =>{
     })
 })
 
-exports.inventory_item_detail = asyncHandler((req, res, next) =>{
-    res.send("NOT IMPLEMENTED: Inventory detail");
+exports.inventory_item_detail = asyncHandler(async (req, res, next) =>{
+    const [inventoryItem, inventoryItemItems] = await Promise.all([
+        InventoryItem.findById(req.params.id).exec(),
+        Item.find({ inventory_item_id: req.params.id }).exec(),
+    ])
+
+    if (inventoryItemItems === null) {
+        // No results.
+        const err = new Error("Inventory Item not found");
+        err.status = 404;
+        return next(err);
+    }
+    
+    res.render('inventory_item_detail', {
+        inventory_item: inventoryItem,
+        inventory_item_items: inventoryItemItems,
+        errors: null
+    })
 })
 
 exports.inventory_item_create_get = asyncHandler((req, res, next) =>{
