@@ -1,0 +1,62 @@
+<h1><%=title%></h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Dairy, Bakery, etc..." required value="<%=!inventory_item ? "" : inventory_item.name%>">
+        <label for="description">Description</label>
+        <input type="text" name="description" class="form-control" placeholder="fresh vegetables like radishes..." required value="<%=!inventory_item ? "" : inventory_item.name%>">
+        <label for="manufaturer">Manufacturer</label>
+        <input type="text" name="manufaturer" class="form-control" placeholder="Kraft..." required value="<%=!inventory_item ? "" : inventory_item.manufaturer%>">
+        <label for="isDiscounted">Discounted?</label>
+        <input type="checkbox" name="isDiscounted" id="isDiscounted" class="form-control" value="<%=!inventory_item ? false : inventory_item.isDiscounted%>">
+        <div id="conditional-container">
+            <label for="discountDecimalized">Discount Percent Decimalized</label>
+            <input type="number" name="discountDecimalized" class="form-control" value="<%=!(inventory_item && inventory_item.inventory_item_discount.isDiscounted) ? 0 : inventory_item.inventory_item_discount.discountDecimalized%>" min="0" max="1" step="0.01">
+        </div>
+        <label for="price">Price</label>
+        <input type="number" name="price" class="form-control" value="<%= !inventory_item ? 0 : inventory_item.price %>" min="0" max="9999" step="0.01" required>
+        <label for="storage">Storage</label>
+        <select name="storage" class="form-control">
+            <option value="">--Please Select a Storage Option</option>
+            <% for(let storage of all_storages){ %>
+                <% if(selected_storage === storage){ %>
+                    <option value="<%=storage%>" selected><%=storage%></option>
+                <% }else{ %>
+                    <option value="<%=storage%>"><%=storage%></option>
+                <% } %>
+            <% } %>
+        </select>
+        <label for="category">Category</label>
+        <select name="category" class="form-control">
+            <option value="">--Please Select a Category</option>
+            <% for(let category of all_categories){ %>
+                <% if(selected_category === category._id.toString()){ %>
+                    <option value="<%=category._id%>" selected><%=category.name%></option>
+                <% }else{ %>
+                    <option value="<%=category._id%>"><%=category.name%></option>
+                <% } %>
+            <% } %>
+        </select>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+    <% if(errors){ %>
+        <ul>
+            <% for(let error of errors){ %>
+                <li>
+                    <%=error.msg%>
+                </li>
+            <% } %>
+        </ul>
+    <% } %>
+</form>
+<script>
+    const checkbox = document.getElementById('isDiscounted');
+    const conditionalInputContainer = document.getElementById('conditional-container');
+
+    conditionalInputContainer.style.display = checkbox.checked ? 'block' : 'none';
+
+    checkbox.addEventListener('change', function() {
+      conditionalInputContainer.style.display = checkbox.checked ? 'block' : 'none';
+    });
+  </script>

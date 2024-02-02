@@ -1,0 +1,54 @@
+<h1><%=title%></h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="received_date">Received Date:</label>
+        <input type="date" name="received_date" class="form-control" required value="<%=!item ? new Date() : item.received_date%>">
+        <label for="expiration_date">Expiration Date:</label>
+        <input type="date" name="expiration_date" class="form-control" required value="<%=!item ? new Date() : item.expiration_date%>">
+        <label for="isDiscounted">Item Discounted?</label>
+        <input type="checkbox" name="isDiscounted" id="isDiscounted" class="form-control" value="<%=!item ? false : item.isDiscounted%>">
+        <div id="conditional-container">
+            <label for="discountDecimalized">Item Discount Percent Decimalized</label>
+            <input type="number" name="discountDecimalized" class="form-control" value="<%=!(item && item.item_discount.isDiscounted) ? 0 : item.item_discount.discountDecimalized%>" min="0" max="1" step="0.01">
+        </div>
+        <label for="damaged">Item Damaged?</label>
+        <input type="checkbox" name="damaged" id="damaged" class="form-control" value="<%=!item ? false : item.damaged%>">
+        <label for="returned">Item Returned?</label>
+        <input type="checkbox" name="returned" id="returned" class="form-control" value="<%=!item ? false : item.returned%>">
+        <label for="weight_oz">Weight OZ</label>
+        <input type="number" name="weight_oz" class="form-control" value="<%= !item ? null : item.weight_oz %>" min="0" max="9999" step="0.01" required>
+        <label for="storage">Category</label>
+        <select name="category_id" class="form-control">
+            <option value="">--Please Select a Category Option</option>
+            <% for(let category of all_categories){ %>
+                <% if(selected_category === category._id.toString()){ %>
+                    <option value="<%=category._id%>" selected><%=category.name%></option>
+                <% }else{ %>
+                    <option value="<%=category._id%>"><%=category.name%></option>
+                <% } %>
+            <% } %>
+        </select>
+        <label for="inventory_item_id">Inventory Item</label>
+        <select name="inventory_item_id" class="form-control">
+            <option value="">--Please Select a Category</option>
+            <% for(let inventory_items of all_inventory_items){ %>
+                <% if(selected_inventory_item === inventory_items._id.toString()){ %>
+                    <option value="<%=inventory_items._id%>" selected><%=inventory_items.name%></option>
+                <% }else{ %>
+                    <option value="<%=inventory_items._id%>"><%=inventory_items.name%></option>
+                <% } %>
+            <% } %>
+        </select>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+    <% if(errors){ %>
+        <ul>
+            <% for(let error of errors){ %>
+                <li>
+                    <%=error.msg%>
+                </li>
+            <% } %>
+        </ul>
+    <% } %>
+</form>

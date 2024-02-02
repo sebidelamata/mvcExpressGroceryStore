@@ -1,0 +1,19 @@
+<h1><%=title%></h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Dairy, Bakery, etc..." required value="<%=!category ? "" : category.name%>">
+        <label for="description">Description</label>
+        <input type="text" name="description" class="form-control" placeholder="fresh vegetables like radishes..." required value="<%=!category ? "" : category.name%>">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+    <% if(errors){ %>
+        <ul>
+            <% for(let error of errors){ %>
+                <li>
+                    <%=error.msg%>
+                </li>
+            <% } %>
+        </ul>
+    <% } %>
+</form>
